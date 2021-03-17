@@ -5,7 +5,10 @@ def get_discriminator_block(input_dim, output_dim):
     return nn.Sequential(
         nn.Linear(input_dim, output_dim),
         nn.LeakyReLU(0.2, inplace=True)
-        # todo: inplace?
+        # inplace = True: inplace=True means that it will modify the input directly, without allocating any
+        # additional output. It can sometimes slightly decrease the memory usage, but may not always be a valid
+        # operation (because the original input is destroyed). However, if you don’t see an error, it means that your
+        # use case is valid.
     )
 
 
@@ -18,7 +21,7 @@ class Discriminator(nn.Module):
             get_discriminator_block(hidden_dim * 4, hidden_dim * 2),
             get_discriminator_block(hidden_dim * 2, hidden_dim),
             nn.Linear(hidden_dim, 1),
-            # todo: no activation function??
+            # todo: no activation function? and why need one more linear layer?
         )
 
     def forward(self, image):

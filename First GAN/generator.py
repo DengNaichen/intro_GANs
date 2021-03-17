@@ -14,7 +14,7 @@ def get_generator_block(input_dim, output_dim):
     )
 
 
-class generator(nn.Module):
+class Generator(nn.Module):
 
     def __init__(self, z_dim=10, im_dim=784, hidden_dim=128):
         """
