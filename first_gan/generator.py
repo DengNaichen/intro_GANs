@@ -1,19 +1,6 @@
 from torch import nn
 
 
-def get_generator_block(input_dim, output_dim):
-    """
-    :param input_dim: scalar,
-    :param output_dim:
-    :return: for single layer??
-    """
-    return nn.Sequential(
-        nn.Linear(input_dim, output_dim),
-        nn.BatchNorm1d(output_dim),
-        nn.ReLU(inplace=True)
-    )
-
-
 class Generator(nn.Module):
     """
     Generator Class
@@ -23,19 +10,38 @@ class Generator(nn.Module):
         hidden_dim: the inner dimension, a scalar
         here the generator is the simplest FNN
     """
+
     def __init__(self, z_dim=10, im_dim=784, hidden_dim=128):
         super(Generator, self).__init__()
 
         self.gen = nn.Sequential(
-            # input layer
-            get_generator_block(z_dim, hidden_dim),
+            # input layer, the input is noise(not conditional GANs, so only noise)
+            self.get_generator_block(z_dim, hidden_dim),
             # hidden layers
-            get_generator_block(hidden_dim, hidden_dim * 2),
-            get_generator_block(hidden_dim * 2, hidden_dim * 4),
-            get_generator_block(hidden_dim * 4, hidden_dim * 8),
-            #
+            self.get_generator_block(hidden_dim, hidden_dim * 2),
+            self.get_generator_block(hidden_dim * 2, hidden_dim * 4),
+            self.get_generator_block(hidden_dim * 4, hidden_dim * 8),
+            # output layer, the output is an image
             nn.Linear(hidden_dim * 8, im_dim),
+            # todo: why need a sigmoid here
             nn.Sigmoid()
+        )
+
+    def get_generator_block(self, input_dim, output_dim):
+        """
+        :param input_dim: scalar
+        :param output_dim: scalar
+        :return: a single layer
+        """
+        return nn.Sequential(
+            # linear function
+            nn.Linear(input_dim, output_dim),
+            # todo: not sure why need a batch normalization here, even not sure what bn do.
+            # see detail here:
+            # https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html#torch.nn.BatchNorm1d
+            nn.BatchNorm1d(output_dim),
+            # activation function
+            nn.ReLU(inplace=True)
         )
 
     def forward(self, noise):
