@@ -1,6 +1,5 @@
 from tqdm import tqdm
 
-
 def Training(gen, disc, criterion, z_dim, n_epochs, dataloader, device):
     """
     :param n_epochs:
