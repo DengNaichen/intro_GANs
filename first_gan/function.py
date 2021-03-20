@@ -36,10 +36,12 @@ def get_gen_loss(gen, disc, criterion, num_images, z_dim, device):
     :return:
     todo：why we need get generator loss?
     """
+    # num_image * z_dim matrix
     fake_noise = get_noise(num_images, z_dim, device=device)
+    # fake is the output image
     fake = gen(fake_noise)
+    # disc_fake_pred is the output of discriminator, should be a number?
     disc_fake_pred = disc(fake)
-    gen_loss = criterion(disc_fake_pred, torch.ones_like(disc_fake_pred))
 
     return gen_loss
 
