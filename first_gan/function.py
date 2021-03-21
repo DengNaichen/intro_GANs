@@ -14,7 +14,7 @@ def get_noise(n_samples, noise_dim, device='cpu'):
     """
     :param n_samples:
     :param noise_dim:
-    :param device: todo: what device do, cpu or cuda?
+    :param device: todo: cpu or cuda
     :return: will return a n_sample * noise_dim matrix, which means that
     the noise vector in this matrix is row vector with dimension 1 * noise_dim
     todo: the input should be transpose??
@@ -34,7 +34,7 @@ def get_gen_loss(gen, disc, criterion, num_images, z_dim, device):
     :param z_dim:
     :param device:
     :return:
-    todo：why we need get generator loss?
+    todo：why we need get generator loss? or what generator loss mean?
     """
     # num_image * z_dim matrix
     fake_noise = get_noise(num_images, z_dim, device=device)
@@ -42,6 +42,8 @@ def get_gen_loss(gen, disc, criterion, num_images, z_dim, device):
     fake = gen(fake_noise)
     # disc_fake_pred is the output of discriminator, should be a number?
     disc_fake_pred = disc(fake)
+    # todo: figure out the dimension
+    gen_loss = criterion(disc_fake_pred, torch.ones_like(disc_fake_pred))
 
     return gen_loss
 

@@ -14,6 +14,8 @@ class Discriminator(nn.Module):
             # output layer, output is 1, which is a probability of real or fake.
             nn.Linear(hidden_dim, 1),
             # todo: why here is no activation function? I think a sigmoid function should be here?
+            # result, the sigmoid function is a build function for nn.BCEWithLogitsLoss(), so we don't need it here,
+            # But theoretically, a activation function(sigmoid) are required.
         )
 
     def get_discriminator_block(self, input_dim, output_dim):

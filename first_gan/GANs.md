@@ -22,7 +22,7 @@ two different NN
 
 ##### Discriminator Generator
 **Discriminator:**
-![-w884](media/16158462374668/16158593486827.png)
+![-w884](figure/16158593486827.png)
 1. Features X
 2. Labels Y
 3. parameters theta
@@ -33,10 +33,10 @@ P(Y|X)
 how fake this image is?
 P(fake|features) = ?
 and the probabilities are the feedback for the generator
-![-w838](media/16158462374668/16158597134547.png)
+![-w838](figure/16158597134547.png)
 
 Generator
-![-w701](media/16158462374668/16158607446436.png)
+![-w701](figure/16158607446436.png)
 learning: 
 
 P(features|class)
@@ -49,7 +49,7 @@ P(features)
 
 ##### BCE Cost Function
 for binary classification (real and fake)
-![-w1745](media/16158462374668/16162738761537.png)
+![-w1745](figure/16162738761537.png)
 Same as what I used before, m is the number of training data(samples), y is the true value, h is the output value(prediction), where x(i) is the input and $\theta$ are parameters.
 
 
