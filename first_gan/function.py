@@ -40,7 +40,7 @@ def get_gen_loss(gen, disc, criterion, num_images, z_dim, device):
     fake_noise = get_noise(num_images, z_dim, device=device)
     # fake is the output image
     fake = gen(fake_noise)
-    # disc_fake_pred is the output of discriminator, should be a number?
+    # disc_fake_pred is the output of discriminator, or the prediction of discriminator, should be scalar? I think so
     disc_fake_pred = disc(fake)
     # todo: figure out the dimension
     gen_loss = criterion(disc_fake_pred, torch.ones_like(disc_fake_pred))
@@ -62,6 +62,8 @@ def get_disc_loss(gen, disc, criterion, real, num_images, z_dim, device):
     """
     noise = get_noise(num_images, z_dim, device=device)
     fake = gen(noise)
+    # todo: why need detach() here?
+    # since the generator is needed when calculating the discriminator's loss,
     disc_fake_pred = disc(fake.detach())
     disc_fake_loss = criterion(disc_fake_pred, torch.zeros_like(disc_fake_pred))
     # You need a 'ground truth' tensor in order to calculate the loss.

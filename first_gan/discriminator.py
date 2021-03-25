@@ -7,6 +7,7 @@ class Discriminator(nn.Module):
         super(Discriminator, self).__init__()
         self.disc = nn.Sequential(
             # input layer, input is the image tensor, output is the input of the next hidden layer
+            # here the input dimension is 784 * 512, where 784 is the 28 * 28 which is the size of image，
             self.get_discriminator_block(im_dim, hidden_dim * 4),
             # hidden layer, activation function for each layer is leak relu.
             self.get_discriminator_block(hidden_dim * 4, hidden_dim * 2),

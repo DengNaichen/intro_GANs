@@ -13,7 +13,6 @@ class Generator(nn.Module):
 
     def __init__(self, z_dim=10, im_dim=784, hidden_dim=128):
         super(Generator, self).__init__()
-
         self.gen = nn.Sequential(
             # input layer, the input is noise(not conditional GANs, so only noise)
             self.get_generator_block(z_dim, hidden_dim),
