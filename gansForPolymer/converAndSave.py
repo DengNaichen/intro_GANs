@@ -21,6 +21,11 @@ def str_to_int(item):
 
 
 def convert2dirction(a, b):
+    """
+    :param a: a is the current coordinate, such as (-1, -2, 1)
+    :param b: b is the next coordinate, like (-1, -1, 2)
+    :return: direction
+    """
     if a[0] - b[0] == 1:
         # left
         return -2
@@ -30,7 +35,7 @@ def convert2dirction(a, b):
     elif a[1] - b[1] == -1:
         # up
         return 1
-    else:
+    elif a[1] - b[1] == 1:
         # down
         return 2
 
@@ -66,7 +71,7 @@ def arrange_direction(coordinate, num):
     for i in range(num):
         direction = []
         for j in range(15):
-            a = convert2dirction(coordinate[j + (i + 15)], coordinate[(j + 1) + (i * 15)])
+            a = convert2dirction(coordinate[j + (i * 15)], coordinate[(j + 1) + (i * 15)])
             direction.append(a)
         direction_all.append(direction)
     return direction_all
